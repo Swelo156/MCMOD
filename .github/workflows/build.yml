@@ -15,11 +15,6 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Setup Gradle 8.7
-        uses: gradle/actions/setup-gradle@v3
-        with:
-          gradle-version: 8.7
-
       - name: Find Mod Folder and Make Gradle Executable
         run: |
           GRADLEW_PATH=$(find . -name gradlew)
@@ -30,14 +25,13 @@ jobs:
           chmod +x "$GRADLEW_PATH"
           echo "MOD_DIR=$(dirname "$GRADLEW_PATH")" >> $GITHUB_ENV
 
-      - name: Build Mod with Gradle
+      - name: Build Mod with Gradle Wrapper
         run: |
           cd "${{ env.MOD_DIR }}"
-          gradle build
+          ./gradlew build
 
       - name: Upload Mod Jar File
         uses: actions/upload-artifact@v4
         with:
           name: Minecraft-Mod-Jar
           path: '**/build/libs/*.jar'
-
