@@ -1,0 +1,17 @@
+{
+  "entity.unstablecompanions.flame_frags": "FlameFrags",
+  "entity.unstablecompanions.wemmbu": "Wemmbu",
+  "entity.unstablecompanions.spoke_is_here": "SpokeIsHere",
+  "entity.unstablecompanions.wifies": "Wifies",
+  "entity.unstablecompanions.jumper_who": "JumperWho",
+  "entity.unstablecompanions.jaden_man": "Jaden_MAN",
+  "entity.unstablecompanions.lettuce_k": "LettuceK",
+  "entity.unstablecompanions.ashswagg": "Ashswagg",
+  "entity.unstablecompanions.jamato_p": "JamatoP",
+
+  "item.unstablecompanions.companion_spawner": "Companion Spawner",
+  "item.unstablecompanions.stab_shot": "Stab Shot",
+  "item.unstablecompanions.nuke_shot": "Nuke Shot",
+
+  "unstablecompanions.config.title": "Unstable Companions Configuration"
+}
