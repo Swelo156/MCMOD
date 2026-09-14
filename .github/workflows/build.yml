@@ -13,21 +13,16 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '21' # Updated for Minecraft 1.21.1
+          java-version: '21'
 
-      - name: Find and Make Gradle Executable
-        run: |
-          GRADLEW_PATH=$(find . -name gradlew)
-          if [ -z "$GRADLEW_PATH" ]; then
-            echo "Error: gradlew file not found anywhere in the repository!"
-            exit 1
-          fi
-          chmod +x "$GRADLEW_PATH"
-          echo "FOUND_PATH=$(dirname "$GRADLEW_PATH")" >> $GITHUB_ENV
+      - name: Make Gradle Executable
+        # Replace YOUR_MOD_FOLDER_NAME with the exact name of your blue blurred folder
+        run: chmod +x ./"UnstableCompanions"/gradlew
 
       - name: Build Mod with Gradle
+        # Replace YOUR_MOD_FOLDER_NAME with the exact name of your blue blurred folder
         run: |
-          cd ${{ env.FOUND_PATH }}
+          cd ./"YOUR_MOD_FOLDER_NAME"
           ./gradlew build
 
       - name: Upload Mod Jar File
