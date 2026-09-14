@@ -13,16 +13,25 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '17' # Change to '21' if you are building for newer Minecraft versions
+          java-version: '21' # Updated for Minecraft 1.21.1
 
-      - name: Make Gradle Executable
-        run: chmod +x ./gradlew
+      - name: Find and Make Gradle Executable
+        run: |
+          GRADLEW_PATH=$(find . -name gradlew)
+          if [ -z "$GRADLEW_PATH" ]; then
+            echo "Error: gradlew file not found anywhere in the repository!"
+            exit 1
+          fi
+          chmod +x "$GRADLEW_PATH"
+          echo "FOUND_PATH=$(dirname "$GRADLEW_PATH")" >> $GITHUB_ENV
 
       - name: Build Mod with Gradle
-        run: ./gradlew build
+        run: |
+          cd ${{ env.FOUND_PATH }}
+          ./gradlew build
 
       - name: Upload Mod Jar File
         uses: actions/upload-artifact@v4
         with:
           name: Minecraft-Mod-Jar
-          path: build/libs/*.jar
+          path: '**/build/libs/*.jar'
