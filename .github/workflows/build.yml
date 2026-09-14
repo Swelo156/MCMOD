@@ -15,14 +15,19 @@ jobs:
           distribution: 'temurin'
           java-version: '21'
 
-      - name: Make Gradle Executable
-        # Replace YOUR_MOD_FOLDER_NAME with the exact name of your blue blurred folder
-        run: chmod +x ./"UnstableCompanions"/gradlew
+      - name: Find Mod Folder and Make Gradle Executable
+        run: |
+          GRADLEW_PATH=$(find . -name gradlew)
+          if [ -z "$GRADLEW_PATH" ]; then
+            echo "Error: gradlew file not found anywhere!"
+            exit 1
+          fi
+          chmod +x "$GRADLEW_PATH"
+          echo "MOD_DIR=$(dirname "$GRADLEW_PATH")" >> $GITHUB_ENV
 
       - name: Build Mod with Gradle
-        # Replace YOUR_MOD_FOLDER_NAME with the exact name of your blue blurred folder
         run: |
-          cd ./"YOUR_MOD_FOLDER_NAME"
+          cd "${{ env.MOD_DIR }}"
           ./gradlew build
 
       - name: Upload Mod Jar File
@@ -30,3 +35,4 @@ jobs:
         with:
           name: Minecraft-Mod-Jar
           path: '**/build/libs/*.jar'
+
